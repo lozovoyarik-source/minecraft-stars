@@ -219,6 +219,14 @@ adminRouter.get('/export.csv', (req,res)=>{
 });
 app.use('/api/admin',adminRouter);
 app.use('/admin', (req, res, next) => 
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/admin/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/admin/admin.js', (req, res) => res.sendFile(path.join(__dirname, 'admin.js')));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/app.js', (req, res) => res.sendFile(path.join(__dirname, 'app.js')));
+app.get('/style.css', (req, res) => res.sendFile(path.join(__dirname, 'style.css')));
+
   app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/admin/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/admin/admin.js', (req, res) => res.sendFile(path.join(__dirname, 'admin.js')));
