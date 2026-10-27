@@ -223,9 +223,13 @@ app.use('/admin', (req, res, next) => {
     return res.sendFile(path.join(__dirname, 'index.html'));
   }
   next();
-}, express.static(path.join(__dirname, 'public/admin')));
+}, app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/admin/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/admin/admin.js', (req, res) => res.sendFile(path.join(__dirname, 'admin.js')));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/app.js', (req, res) => res.sendFile(path.join(__dirname, 'app.js')));
+app.get('/style.css', (req, res) => res.sendFile(path.join(__dirname, 'style.css')));
 app.use('/app.js', express.static(path.join(__dirname, 'app.js')));
 app.use('/style.css', express.static(path.join(__dirname, 'style.css')));
 app.use((err,req,res,next)=>{ console.error(err); res.status(500).json({error:'Внутрішня помилка сервера.'}); });
