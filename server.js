@@ -218,6 +218,53 @@ adminRouter.get('/export.csv', (req,res)=>{
   logEvent('csv_export',req.tgUser.id,`${users.length} users`); res.setHeader('Content-Type','text/csv; charset=utf-8');res.setHeader('Content-Disposition','attachment; filename="minecraft-stars-users.csv"');res.send('\ufeff'+lines.join('\r\n'));
 });
 app.use('/api/admin',adminRouter);
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || '';
+
+app.post('/telegram-webhook', async (req, res) => {
+  if (!WEBHOOK_SECRET ||
+      req.get('X-Telegram-Bot-Api-Secret-Token') !== WEBHOOK_SECRET) {
+    return res.sendStatus(403);
+  }
+
+  const message = req.body?.message;
+  if (!message?.text || !message?.chat?.id) {
+    return res.sendStatus(200);
+  }
+
+  const chatId = String(message.chat.id);
+  const userId = String(message.from?.id || '');
+  const text = message.text.trim();
+
+  if (text === '/start') {
+    const isAdmin = ADMIN_ID && userId === ADMIN_ID;
+
+    const replyMarkup = isAdmin
+      ? {
+          inline_keyboard: [[
+            {
+              text: '⚙️ Адмін-панель',
+              web_app: { url: 'https://minecraft-stars.onrender.com/admin' }
+            }
+          ]]
+        }
+      : { inline_keyboard: [] };
+
+    try {
+      await telegram('sendMessage', {
+        chat_id: chatId,
+        text: isAdmin
+          ? 'Вітаю! Панель керування Minecraft Stars:'
+          : 'Вітаю в Minecraft Stars!',
+        reply_markup: replyMarkup
+      });
+    } catch (error) {
+      console.error('Помилка відповіді бота:', error.message);
+    }
+  }
+
+  res.sendStatus(200);
+});
+
 
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/admin/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
