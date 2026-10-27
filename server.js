@@ -219,6 +219,6 @@ adminRouter.get('/export.csv', (req,res)=>{
 });
 app.use('/api/admin',adminRouter);
 app.use('/admin', express.static(path.join(__dirname,'public/admin')));
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(__dirname));
 app.use((err,req,res,next)=>{ console.error(err); res.status(500).json({error:'Внутрішня помилка сервера.'}); });
 app.listen(PORT,()=>console.log(`Minecraft Stars is running on http://localhost:${PORT}`));
