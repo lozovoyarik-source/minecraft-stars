@@ -218,7 +218,6 @@ adminRouter.get('/export.csv', (req,res)=>{
   logEvent('csv_export',req.tgUser.id,`${users.length} users`); res.setHeader('Content-Type','text/csv; charset=utf-8');res.setHeader('Content-Disposition','attachment; filename="minecraft-stars-users.csv"');res.send('\ufeff'+lines.join('\r\n'));
 });
 app.use('/api/admin',adminRouter);
-app.use('/admin', (req, res, next) => 
 
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/admin/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
