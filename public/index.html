@@ -1,0 +1,98 @@
+
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090d27">
+  <title>Minecraft Stars</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <span>✦</span><span>✧</span><span>·</span><span>✦</span>
+    <span>✧</span><span>·</span><span>✦</span><span>✧</span>
+    <div class="moon"></div>
+    <div class="island island-a"></div>
+    <div class="island island-b"></div>
+  </div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark">✦</div>
+      <div>
+        <p class="eyebrow">MINECRAFT · REWARDS</p>
+        <h1>MINECRAFT <span>STARS</span></h1>
+      </div>
+      <div class="live-pill"><i></i> ONLINE</div>
+    </header>
+
+    <section class="panel hero">
+      <div class="hero-copy">
+        <p class="eyebrow">ТВОЯ ПРИГОДА ПОЧИНАЄТЬСЯ</p>
+        <h2>Заряджай<br>свій <span>меч!</span></h2>
+        <p class="muted">Виконуй завдання, підписуйся на канали та відкривай нагороди.</p>
+      </div>
+      <div class="sword-wrap">
+        <div class="sword-glow"></div>
+        <div class="sword" id="sword">
+          <div class="blade">
+            <div class="blade-fill" id="bladeFill"></div>
+            <span class="blade-spark">✦</span>
+          </div>
+          <div class="guard"></div>
+          <div class="grip"></div>
+          <div class="pommel"></div>
+        </div>
+      </div>
+      <div class="progress-meta">
+        <span>ТВІЙ ПРОГРЕС</span>
+        <strong id="progressText">0%</strong>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p class="progress-hint" id="progressHint">Завантаження завдань...</p>
+    </section>
+
+    <section class="sponsors-section">
+      <div class="section-heading">
+        <h2>✦ Завдання</h2>
+        <span class="quest-count" id="questCount">0 ЗАВДАНЬ</span>
+      </div>
+      <div class="sponsor-list" id="sponsors">
+        <div class="loading-card">Завантаження завдань...</div>
+      </div>
+
+      <div class="notice" id="notice" hidden></div>
+
+      <button class="primary-button" id="checkButton" type="button">
+        <span class="sword-icon">⚔</span>
+        <span id="checkLabel">ПЕРЕВІРИТИ ПІДПИСКУ</span>
+        <span class="button-arrow">→</span>
+      </button>
+      <p class="fine-print">Переконайся, що підписався на всі обов’язкові канали.</p>
+
+      <button class="secondary-button" id="telegramButton" type="button">
+        Відкрити Telegram-канал власника
+      </button>
+      <div class="notice" id="ownerNotice" hidden></div>
+    </section>
+  </main>
+
+  <footer>MINECRAFT STARS <span>✦</span></footer>
+
+  <section class="completion-screen" id="completionScreen" aria-hidden="true">
+    <div class="completion-card">
+      <div class="chest">♜<span>✦</span></div>
+      <p class="eyebrow">МІСІЮ ВИКОНАНО</p>
+      <h2>Твій меч <span>заряджено!</span></h2>
+      <p class="muted">Усі обов’язкові завдання виконано. Дякуємо за участь!</p>
+      <button class="primary-button" id="recheckButton" type="button">ОНОВИТИ СТАТУС</button>
+    </div>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
