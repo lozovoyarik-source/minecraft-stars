@@ -218,7 +218,15 @@ adminRouter.get('/export.csv', (req,res)=>{
   logEvent('csv_export',req.tgUser.id,`${users.length} users`); res.setHeader('Content-Type','text/csv; charset=utf-8');res.setHeader('Content-Disposition','attachment; filename="minecraft-stars-users.csv"');res.send('\ufeff'+lines.join('\r\n'));
 });
 app.use('/api/admin',adminRouter);
-app.use('/admin', express.static(path.join(__dirname,'public/admin')));
-app.use(express.static(__dirname));
+app.use('/admin', (req, res, next) => {
+  if (req.path === '/' || req.path === '/index.html') {
+    return res.sendFile(path.join(__dirname, 'index.html'));
+  }
+  next();
+}, express.static(path.join(__dirname, 'public/admin')));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/app.js', express.static(path.join(__dirname, 'app.js')));
+app.use('/style.css', express.static(path.join(__dirname, 'style.css')));
 app.use((err,req,res,next)=>{ console.error(err); res.status(500).json({error:'Внутрішня помилка сервера.'}); });
 app.listen(PORT,()=>console.log(`Minecraft Stars is running on http://localhost:${PORT}`));
